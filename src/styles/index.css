@@ -1,0 +1,161 @@
+@import './fonts.css';
+@import './tailwind.css';
+@import './theme.css';
+
+/* =====================================================
+   MOBILE / RESPONSIVE CORE
+   ===================================================== */
+
+/* Dynamic viewport height — handles iOS/Android address bar */
+:root {
+  --app-height: 100dvh;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+}
+
+/* App root fills screen properly */
+html, body, #root {
+  height: 100%;
+  height: var(--app-height);
+}
+
+/* Prevent iOS bounce / overscroll */
+html {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+body {
+  overflow-x: hidden;
+  overscroll-behavior: none;
+  /* Prevent iOS font bump on orientation change */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  /* Remove tap highlight on Android/iOS */
+  -webkit-tap-highlight-color: transparent;
+  /* Smooth scroll everywhere */
+  scroll-behavior: smooth;
+}
+
+/* Allow content to scroll inside the root */
+#root {
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* min-h-screen should use dynamic viewport */
+.min-h-screen {
+  min-height: 100dvh;
+}
+
+/* Full screen pages */
+.h-screen {
+  height: 100dvh;
+}
+
+/* =====================================================
+   SAFE AREA UTILITIES
+   ===================================================== */
+
+/* iOS Home Indicator / Notch aware padding */
+.pt-safe  { padding-top:    env(safe-area-inset-top,    0px); }
+.pr-safe  { padding-right:  env(safe-area-inset-right,  0px); }
+.pb-safe  { padding-bottom: env(safe-area-inset-bottom, 0px); }
+.pl-safe  { padding-left:   env(safe-area-inset-left,   0px); }
+
+/* Combined safe padding for status bar at top */
+.header-safe {
+  padding-top: max(1rem, env(safe-area-inset-top, 1rem));
+}
+
+/* Bottom nav safe area */
+.bottom-nav-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Page content bottom clearance (nav height + safe area) */
+.content-pb {
+  padding-bottom: calc(4.5rem + env(safe-area-inset-bottom, 0px));
+}
+
+/* =====================================================
+   TOUCH / TAP TARGETS
+   ===================================================== */
+
+/* All interactive elements — minimum 44×44px tap target (Apple/Google guideline) */
+button, a, [role="button"] {
+  min-height: 44px;
+  min-width:  44px;
+  touch-action: manipulation;
+}
+
+/* Icon-only buttons may be smaller visually but still hit-area of 44px */
+button.icon-btn {
+  position: relative;
+}
+button.icon-btn::after {
+  content: '';
+  position: absolute;
+  inset: -8px;
+}
+
+/* =====================================================
+   LANDSCAPE MODE
+   ===================================================== */
+
+@media screen and (orientation: landscape) and (max-height: 500px) {
+  /* Compact header in landscape phone */
+  .landscape-compact {
+    padding-top: max(0.5rem, env(safe-area-inset-top,   0.5rem));
+    padding-bottom: 0.5rem;
+  }
+
+  /* Bottom nav shorter height in landscape */
+  .bottom-nav-height {
+    height: 3rem;
+  }
+
+  /* Main content adjusts */
+  .min-h-screen {
+    min-height: 100dvh;
+  }
+}
+
+/* Side safe areas for landscape (notch on the sides) */
+@media screen and (orientation: landscape) {
+  .landscape-safe-x {
+    padding-left:  max(1rem, env(safe-area-inset-left,  1rem));
+    padding-right: max(1rem, env(safe-area-inset-right, 1rem));
+  }
+}
+
+/* =====================================================
+   INPUTS — prevent iOS zoom on focus (font-size ≥ 16px)
+   ===================================================== */
+
+input, textarea, select {
+  font-size: 16px !important;
+}
+
+/* =====================================================
+   SCROLLABLE AREAS
+   ===================================================== */
+
+.scroll-touch {
+  -webkit-overflow-scrolling: touch;
+  overflow-y: auto;
+}
+
+/* Hide scrollbar on mobile but keep functionality */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
