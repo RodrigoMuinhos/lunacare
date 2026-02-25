@@ -235,7 +235,8 @@ export const Routine = () => {
   return (
     <div className="min-h-screen bg-gray-50 content-pb">
       {/* Header */}
-      <div className="bg-gradient-to-br from-[#CDE7BE]/20 via-[#BFD7ED]/20 to-[#D9C2F0]/20 p-6 rounded-b-[2.5rem]">
+      <div className="bg-gradient-to-br from-[#CDE7BE]/20 via-[#BFD7ED]/20 to-[#D9C2F0]/20 p-6 lg:px-10 rounded-b-[2.5rem]">
+        <div className="max-w-5xl mx-auto">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
             <motion.button
@@ -305,10 +306,11 @@ export const Routine = () => {
             </div>
           </motion.div>
         </div>
+        </div>
       </div>
 
       {/* Main Content */}
-      <div className="px-6 mt-6 space-y-5">
+      <div className="px-6 lg:px-10 mt-6 space-y-5 max-w-5xl mx-auto">
         {/* Hábitos por Categoria */}
         {habitsByCategory.map((category, catIndex) => {
           const CategoryIcon = category.icon;

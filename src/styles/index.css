@@ -82,6 +82,28 @@ body {
   padding-bottom: calc(4.5rem + env(safe-area-inset-bottom, 0px));
 }
 
+/* On desktop: sidebar is 240px wide, no bottom padding needed */
+@media (min-width: 1024px) {
+  .content-pb {
+    padding-bottom: 2.5rem;
+    padding-left: 15rem; /* sidebar w-60 = 240px */
+  }
+}
+
+/* Responsive page content max-width on desktop */
+.page-content {
+  width: 100%;
+}
+@media (min-width: 1024px) {
+  .page-content {
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
 /* =====================================================
    TOUCH / TAP TARGETS
    ===================================================== */

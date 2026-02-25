@@ -276,7 +276,8 @@ export const Cycle = () => {
   return (
     <div className="min-h-screen bg-gray-50 content-pb">
       {/* Header */}
-      <div className="bg-gradient-to-br from-[#F7C8E0]/20 to-[#D9C2F0]/20 p-6 rounded-b-3xl">
+      <div className="bg-gradient-to-br from-[#F7C8E0]/20 to-[#D9C2F0]/20 p-6 lg:px-10 rounded-b-3xl">
+        <div className="max-w-5xl mx-auto">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
             <button
@@ -324,10 +325,11 @@ export const Cycle = () => {
             <p className="text-xs text-gray-500">Dia 16 do ciclo</p>
           </motion.div>
         </div>
+        </div>
       </div>
 
       {/* Main Content */}
-      <div className="p-6 space-y-6">
+      <div className="p-6 lg:px-10 space-y-6 max-w-5xl mx-auto">
         {/* Calendar Section */}
         <div className="bg-white rounded-3xl shadow-sm overflow-hidden">
           {/* Month Navigation */}

@@ -10,6 +10,7 @@ export const Messages = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 content-pb">
+      <div className="max-w-3xl mx-auto">
       <div className="bg-gradient-to-br from-[#D9C2F0]/20 to-[#F7C8E0]/20 p-6 rounded-b-3xl mb-6">
         <h1 className="text-2xl font-bold text-gray-800 mb-2">Mensagens</h1>
         <p className="text-sm text-gray-600">
@@ -90,6 +91,7 @@ export const Messages = () => {
       )}
 
       <BottomNav />
+      </div>
     </div>
   );
 };

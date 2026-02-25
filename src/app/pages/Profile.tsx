@@ -125,7 +125,8 @@ export const Profile = () => {
 
   return (
     <div className="min-h-screen bg-white content-pb">
-      {/* Header with Avatar - Centered */}
+      <div className="max-w-3xl mx-auto">
+        {/* Header with Avatar - Centered */}
       <div className="pt-8 pb-6 px-6 text-center">
         <div className="relative inline-block">
           <motion.button
@@ -465,6 +466,7 @@ export const Profile = () => {
       </AnimatePresence>
 
       <BottomNav />
+      </div>
     </div>
   );
 };

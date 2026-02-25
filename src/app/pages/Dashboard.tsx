@@ -117,7 +117,8 @@ export const Dashboard = () => {
   return (
     <div className="min-h-screen bg-gray-50 content-pb">
       {/* Header Premium */}
-      <div className="bg-gradient-to-br from-[#F7C8E0]/30 via-[#D9C2F0]/20 to-[#BFD7ED]/30 p-6 rounded-b-[2.5rem]">
+      <div className="bg-gradient-to-br from-[#F7C8E0]/30 via-[#D9C2F0]/20 to-[#BFD7ED]/30 p-6 lg:px-10 rounded-b-[2.5rem]">
+        <div className="max-w-5xl mx-auto">
         <div className="flex items-center justify-between mb-6">
           <div>
             <h1 className="text-2xl font-bold text-gray-800 mb-1">
@@ -176,10 +177,11 @@ export const Dashboard = () => {
             </div>
           </div>
         </motion.div>
+        </div>
       </div>
 
       {/* Main Content */}
-      <div className="px-6 mt-6 space-y-6">
+      <div className="px-6 lg:px-10 mt-6 space-y-6 max-w-5xl mx-auto">
         {/* Clinical Plan Card */}
         {userData.clinicalActive && (
           <motion.div 
@@ -210,7 +212,7 @@ export const Dashboard = () => {
         {/* Quick Insights Carousel */}
         <div>
           <h2 className="text-lg font-bold text-gray-800 mb-3">Insights do dia</h2>
-          <div className="space-y-3">
+          <div className="space-y-3 lg:grid lg:grid-cols-3 lg:gap-4 lg:space-y-0">
             {insights.map((insight, index) => {
               const InsightIcon = insight.icon;
               return (
@@ -239,7 +241,7 @@ export const Dashboard = () => {
         {/* Health Metrics Grid */}
         <div>
           <h2 className="text-lg font-bold text-gray-800 mb-3">Minha Jornada</h2>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -298,7 +300,7 @@ export const Dashboard = () => {
         {/* Weekly Summary Cards */}
         <div>
           <h2 className="text-lg font-bold text-gray-800 mb-3">Esta semana</h2>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -498,7 +500,7 @@ export const Dashboard = () => {
         {/* Quick Actions */}
         <div>
           <h2 className="text-lg font-bold text-gray-800 mb-3">Ações rápidas</h2>
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-3 lg:grid-cols-6 gap-3">
             {[
               { icon: Pill, label: 'Medicação', color: '#F7C8E0', path: '/cycle' },
               { icon: Apple, label: 'Nutrição', color: '#CDE7BE', path: '/routine' },
@@ -548,7 +550,7 @@ export const Dashboard = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 100 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="fixed bottom-0 left-0 right-0 bg-white rounded-t-3xl p-6 z-50 shadow-2xl"
+              className="fixed bottom-0 left-0 right-0 lg:bottom-auto lg:top-1/2 lg:left-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2 lg:w-[480px] bg-white rounded-t-3xl lg:rounded-3xl p-6 z-50 shadow-2xl"
             >
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-3">
@@ -617,7 +619,7 @@ export const Dashboard = () => {
       </AnimatePresence>
 
       {/* Floating Check-in Button */}
-      <div className="fixed bottom-20 left-0 right-0 px-6 z-30 flex justify-center">
+      <div className="fixed bottom-20 lg:bottom-8 left-0 right-0 lg:left-60 px-6 z-30 flex justify-center">
         <motion.div
           initial={{ y: 100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
