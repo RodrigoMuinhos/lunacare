@@ -19,4 +19,29 @@ export default defineConfig({
 
   // File types to support raw imports. Never add .css, .tsx, or .ts files to this.
   assetsInclude: ['**/*.svg', '**/*.csv'],
+
+  build: {
+    // Split vendor chunks for better caching
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom'],
+          'router':       ['react-router'],
+          'motion':       ['motion'],
+          'radix':        [
+            '@radix-ui/react-accordion',
+            '@radix-ui/react-dialog',
+            '@radix-ui/react-dropdown-menu',
+            '@radix-ui/react-popover',
+            '@radix-ui/react-select',
+            '@radix-ui/react-tabs',
+            '@radix-ui/react-checkbox',
+            '@radix-ui/react-avatar',
+          ],
+          'mui': ['@mui/material', '@mui/icons-material'],
+        },
+      },
+    },
+    chunkSizeWarningLimit: 600,
+  },
 })
