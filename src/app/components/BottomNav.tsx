@@ -17,7 +17,7 @@ export const BottomNav = () => {
   return (
     <>
       {/* ── DESKTOP SIDEBAR (lg+) ───────────────────────────── */}
-      <aside className="hidden lg:flex flex-col fixed left-0 top-0 h-full w-60 bg-white border-r border-gray-100 shadow-sm z-50">
+      <aside className="hidden lg:flex flex-col fixed left-0 top-0 h-full w-60 bg-white border-r border-gray-100 shadow-sm z-40">
         {/* Logo */}
         <div className="flex items-center gap-3 px-6 py-7 border-b border-gray-100">
           <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#F7C8E0] to-[#D9C2F0] flex items-center justify-center shadow-sm">

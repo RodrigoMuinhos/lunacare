@@ -330,7 +330,7 @@ export const Profile = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setShowSettings(false)}
-              className="fixed inset-0 bg-black/50 z-40 backdrop-blur-sm"
+              className="fixed inset-0 bg-black/50 z-60 backdrop-blur-sm"
             />
             
             <motion.div
@@ -338,7 +338,7 @@ export const Profile = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 100 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="fixed bottom-0 left-0 right-0 bg-white rounded-t-3xl z-50 shadow-2xl max-h-[80vh] overflow-y-auto"
+              className="fixed bottom-0 left-0 right-0 bg-white rounded-t-3xl z-70 shadow-2xl max-h-[80vh] overflow-y-auto"
             >
               {/* Header */}
               <div className="sticky top-0 bg-white border-b border-gray-100 px-6 py-4 flex items-center justify-between rounded-t-3xl">
@@ -398,7 +398,7 @@ export const Profile = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setShowAvatarPicker(false)}
-              className="fixed inset-0 bg-black/50 z-40 backdrop-blur-sm"
+              className="fixed inset-0 bg-black/50 z-60 backdrop-blur-sm"
             />
             
             <motion.div
@@ -406,7 +406,7 @@ export const Profile = () => {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="fixed inset-0 m-6 max-w-sm mx-auto flex items-center justify-center z-50"
+              className="fixed inset-0 m-6 max-w-sm mx-auto flex items-center justify-center z-70"
             >
               <div className="bg-white rounded-3xl p-6 w-full shadow-2xl">
                 {/* Header */}

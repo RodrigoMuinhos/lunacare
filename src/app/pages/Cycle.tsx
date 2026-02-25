@@ -549,7 +549,7 @@ export const Cycle = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={closeLogModal}
-              className="fixed inset-0 bg-black/50 z-40 backdrop-blur-sm"
+              className="fixed inset-0 bg-black/50 z-60 backdrop-blur-sm"
             />
             
             <motion.div
@@ -557,7 +557,7 @@ export const Cycle = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 100 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="fixed bottom-0 left-0 right-0 bg-white rounded-t-3xl p-6 z-50 shadow-2xl max-h-[85vh] overflow-y-auto"
+              className="fixed bottom-0 left-0 right-0 bg-white rounded-t-3xl p-6 z-70 shadow-2xl max-h-[85vh] overflow-y-auto"
             >
               {/* Flow Modal */}
               {activeLogType === 'flow' && (
@@ -839,7 +839,7 @@ export const Cycle = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/50 z-40 backdrop-blur-sm"
+              className="fixed inset-0 bg-black/50 z-60 backdrop-blur-sm"
             />
             
             <motion.div
@@ -847,7 +847,7 @@ export const Cycle = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 100 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="fixed bottom-0 left-0 right-0 bg-white rounded-t-3xl p-6 z-50 shadow-2xl max-h-[85vh] overflow-y-auto"
+              className="fixed bottom-0 left-0 right-0 bg-white rounded-t-3xl p-6 z-70 shadow-2xl max-h-[85vh] overflow-y-auto"
             >
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-3">
@@ -976,7 +976,7 @@ export const Cycle = () => {
                 setShowDayEditor(false);
                 setEditingDay(null);
               }}
-              className="fixed inset-0 bg-black/50 z-40 backdrop-blur-sm"
+              className="fixed inset-0 bg-black/50 z-60 backdrop-blur-sm"
             />
             
             <motion.div
@@ -984,7 +984,7 @@ export const Cycle = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 100 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="fixed bottom-0 left-0 right-0 bg-white rounded-t-3xl p-6 z-50 shadow-2xl"
+              className="fixed bottom-0 left-0 right-0 bg-white rounded-t-3xl p-6 z-70 shadow-2xl"
             >
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-3">

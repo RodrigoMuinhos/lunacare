@@ -567,7 +567,7 @@ export const Routine = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 50 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="fixed inset-0 z-50 flex items-center justify-center p-6"
+              className="fixed inset-0 z-70 flex items-center justify-center p-6"
             >
               <div className="bg-white rounded-3xl p-6 w-full max-w-md shadow-2xl">
                 <div className="flex items-center justify-between mb-6">
@@ -633,7 +633,7 @@ export const Routine = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 100 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="fixed inset-x-0 bottom-0 md:inset-0 md:flex md:items-center md:justify-center z-50 p-0 md:p-6"
+              className="fixed inset-x-0 bottom-0 md:inset-0 md:flex md:items-center md:justify-center z-70 p-0 md:p-6"
             >
               <div className="bg-white rounded-t-3xl md:rounded-3xl w-full md:max-w-2xl md:mx-auto shadow-2xl max-h-[90vh] overflow-y-auto">
                 {/* Header */}

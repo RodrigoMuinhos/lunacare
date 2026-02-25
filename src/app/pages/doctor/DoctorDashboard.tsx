@@ -807,18 +807,175 @@ export const DoctorDashboard: React.FC = () => {
             </div>
           )}
 
-          {activeTab === 'reports' && (
-            <div className="p-4 lg:p-8">
-              <div className="max-w-6xl mx-auto">
-                <h2 className="text-2xl font-bold text-gray-800 mb-6">
-                  Relatórios e Estatísticas
-                </h2>
-                <div className="bg-white rounded-2xl p-8 text-center text-gray-400">
-                  Relatórios médicos em desenvolvimento
+          {activeTab === 'reports' && (() => {
+            const totalPatients = mockPatients.length;
+            const clinicalActiveCount = mockPatients.filter(p => p.clinicalActive).length;
+            const patientsWithAlerts = mockPatients.filter(p => p.alerts > 0).length;
+            const unreadMsgs = messages.filter(m => m.unread).length;
+
+            const contraMap: Record<string, number> = {};
+            mockPatients.forEach(p => {
+              const key = p.contraceptive || 'Sem método';
+              contraMap[key] = (contraMap[key] || 0) + 1;
+            });
+            const contraceptiveData = Object.entries(contraMap)
+              .sort((a, b) => b[1] - a[1])
+              .slice(0, 6)
+              .map(([name, value]) => ({ name, value }));
+
+            const ageData = [
+              { faixa: '18–24', pacientes: mockPatients.filter(p => p.age >= 18 && p.age <= 24).length },
+              { faixa: '25–29', pacientes: mockPatients.filter(p => p.age >= 25 && p.age <= 29).length },
+              { faixa: '30–34', pacientes: mockPatients.filter(p => p.age >= 30 && p.age <= 34).length },
+              { faixa: '35–39', pacientes: mockPatients.filter(p => p.age >= 35 && p.age <= 39).length },
+              { faixa: '40–45', pacientes: mockPatients.filter(p => p.age >= 40 && p.age <= 45).length },
+            ];
+
+            const consultationData = [
+              { semana: 'Sem 1', consultas: 12, novos: 3 },
+              { semana: 'Sem 2', consultas: 18, novos: 5 },
+              { semana: 'Sem 3', consultas: 15, novos: 2 },
+              { semana: 'Sem 4', consultas: appointments.length + 8, novos: 4 },
+            ];
+
+            const PIE_COLORS = ['#F7C8E0', '#D9C2F0', '#BFD7ED', '#CDE7BE', '#FFB347', '#FF8C42'];
+
+            const kpis = [
+              { label: 'Total de Pacientes', value: totalPatients, sub: 'na carteira', bgColor: '#FFF1F8', barColor: '#F7C8E0' },
+              { label: 'Pacientes Ativas', value: clinicalActiveCount, sub: `${Math.round(clinicalActiveCount / totalPatients * 100)}% do total`, bgColor: '#F3FFED', barColor: '#CDE7BE' },
+              { label: 'Com Alertas', value: patientsWithAlerts, sub: 'requerem atenção', bgColor: '#FFF8ED', barColor: '#FFB347' },
+              { label: 'Msgs não lidas', value: unreadMsgs, sub: 'aguardando resposta', bgColor: '#F5F0FF', barColor: '#D9C2F0' },
+            ];
+
+            return (
+              <div className="p-4 lg:p-8">
+                <div className="max-w-6xl mx-auto">
+                  <div className="mb-8">
+                    <h2 className="text-2xl font-bold text-gray-800 mb-1">Relatórios e Estatísticas</h2>
+                    <p className="text-sm text-gray-400">Visão geral da sua carteira de pacientes</p>
+                  </div>
+
+                  {/* KPI Cards */}
+                  <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                    {kpis.map(kpi => (
+                      <div key={kpi.label} className="bg-white rounded-2xl p-4 lg:p-5 shadow-sm border border-gray-100">
+                        <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-3" style={{ background: kpi.bgColor }}>
+                          <div className="w-4 h-4 rounded-full" style={{ background: kpi.barColor }} />
+                        </div>
+                        <p className="text-3xl font-bold text-gray-800">{kpi.value}</p>
+                        <p className="text-xs font-medium text-gray-600 mt-0.5">{kpi.label}</p>
+                        <p className="text-xs text-gray-400 mt-0.5">{kpi.sub}</p>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Charts Row 1 */}
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                    {/* Weekly Consultations */}
+                    <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
+                      <h3 className="font-semibold text-gray-700 mb-1">Consultas por Semana</h3>
+                      <p className="text-xs text-gray-400 mb-4">Mês atual</p>
+                      <ResponsiveContainer width="100%" height={200}>
+                        <LineChart data={consultationData} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
+                          <CartesianGrid strokeDasharray="3 3" stroke="#f5f5f5" />
+                          <XAxis dataKey="semana" tick={{ fontSize: 11, fill: '#9ca3af' }} axisLine={false} tickLine={false} />
+                          <YAxis tick={{ fontSize: 11, fill: '#9ca3af' }} axisLine={false} tickLine={false} />
+                          <Tooltip contentStyle={{ borderRadius: 12, border: 'none', boxShadow: '0 4px 20px rgba(0,0,0,0.08)' }} />
+                          <Line type="monotone" dataKey="consultas" stroke="#F7C8E0" strokeWidth={2.5} dot={{ fill: '#F7C8E0', r: 4, strokeWidth: 0 }} name="Consultas" />
+                          <Line type="monotone" dataKey="novos" stroke="#D9C2F0" strokeWidth={2} strokeDasharray="5 5" dot={{ fill: '#D9C2F0', r: 3, strokeWidth: 0 }} name="Novas pacientes" />
+                          <Legend wrapperStyle={{ fontSize: 12 }} />
+                        </LineChart>
+                      </ResponsiveContainer>
+                    </div>
+
+                    {/* Age Distribution */}
+                    <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
+                      <h3 className="font-semibold text-gray-700 mb-1">Distribuição por Faixa Etária</h3>
+                      <p className="text-xs text-gray-400 mb-4">N° de pacientes</p>
+                      <ResponsiveContainer width="100%" height={200}>
+                        <BarChart data={ageData} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
+                          <CartesianGrid strokeDasharray="3 3" stroke="#f5f5f5" />
+                          <XAxis dataKey="faixa" tick={{ fontSize: 11, fill: '#9ca3af' }} axisLine={false} tickLine={false} />
+                          <YAxis tick={{ fontSize: 11, fill: '#9ca3af' }} axisLine={false} tickLine={false} />
+                          <Tooltip contentStyle={{ borderRadius: 12, border: 'none', boxShadow: '0 4px 20px rgba(0,0,0,0.08)' }} />
+                          <Bar dataKey="pacientes" name="Pacientes" radius={[6, 6, 0, 0]}>
+                            {ageData.map((_entry, i) => (
+                              <Cell key={i} fill={PIE_COLORS[i % PIE_COLORS.length]} />
+                            ))}
+                          </Bar>
+                        </BarChart>
+                      </ResponsiveContainer>
+                    </div>
+                  </div>
+
+                  {/* Charts Row 2 */}
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    {/* Contraceptive Distribution */}
+                    <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
+                      <h3 className="font-semibold text-gray-700 mb-1">Métodos Contraceptivos</h3>
+                      <p className="text-xs text-gray-400 mb-4">Top 6 métodos na carteira</p>
+                      <ResponsiveContainer width="100%" height={220}>
+                        <PieChart>
+                          <Pie
+                            data={contraceptiveData}
+                            cx="50%"
+                            cy="50%"
+                            innerRadius={50}
+                            outerRadius={85}
+                            paddingAngle={3}
+                            dataKey="value"
+                          >
+                            {contraceptiveData.map((_entry, i) => (
+                              <Cell key={i} fill={PIE_COLORS[i % PIE_COLORS.length]} />
+                            ))}
+                          </Pie>
+                          <Tooltip contentStyle={{ borderRadius: 12, border: 'none', boxShadow: '0 4px 20px rgba(0,0,0,0.08)', fontSize: 12 }} />
+                          <Legend wrapperStyle={{ fontSize: 11 }} />
+                        </PieChart>
+                      </ResponsiveContainer>
+                    </div>
+
+                    {/* Activity Summary */}
+                    <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 flex flex-col">
+                      <h3 className="font-semibold text-gray-700 mb-4">Atividades Recentes</h3>
+
+                      <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-2">Exames</p>
+                      <div className="space-y-2 mb-4">
+                        {recentExams.map((exam, i) => (
+                          <div key={i} className="flex items-center justify-between py-2 border-b border-gray-50 last:border-0">
+                            <div>
+                              <p className="text-sm font-medium text-gray-700 leading-tight">{exam.patient}</p>
+                              <p className="text-xs text-gray-400">{exam.exam}</p>
+                            </div>
+                            <span className={`text-xs px-2 py-1 rounded-full font-medium whitespace-nowrap ml-2 ${
+                              exam.status === 'Concluído'
+                                ? 'bg-green-50 text-green-600'
+                                : 'bg-amber-50 text-amber-600'
+                            }`}>
+                              {exam.status}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+
+                      <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-2">Receitas</p>
+                      <div className="space-y-2">
+                        {recentPrescriptions.map((rx, i) => (
+                          <div key={i} className="flex items-center justify-between py-2 border-b border-gray-50 last:border-0">
+                            <div>
+                              <p className="text-sm font-medium text-gray-700 leading-tight">{rx.patient}</p>
+                              <p className="text-xs text-gray-400">{rx.medication}</p>
+                            </div>
+                            <span className="text-xs text-gray-400 whitespace-nowrap ml-2">{rx.date}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
+            );
+          })()}
 
           {activeTab === 'code' && (
             <div className="p-4 lg:p-8">
